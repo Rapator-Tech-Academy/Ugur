@@ -45,11 +45,3 @@ while repeat:
         repeat = False
     else:
         continue
-
-
-
-
-        
-
-
-    
