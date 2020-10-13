@@ -3,22 +3,22 @@ import json
 from actions import CreateStudent, CreateStaff, CreateLesson, DeleteUser
 
 create_student = CreateStudent()
-create_stuff = CreateStaff()
+create_staff = CreateStaff()
 create_lesson = CreateLesson()
 delete_user = DeleteUser()
 
 user_selection = input("Which process do you want to start? (Delete - D, Add - A): ")
 
 if user_selection == "D":
-    with open('students.json', 'r') as file:
+    with open('datas.json', 'r') as file:
         data = file.read()
         print(data)
 
     id = input("Please enter id of contact: ")
     delete_user.run(id=id)
-    
+
 elif user_selection == "A":
-    type = int(input("Please enter type (1-Student, 2-Stuff, 3-Lesson): "))
+    type = int(input("Please enter type (1-Student, 2-Staff, 3-Lesson): "))
 
     if type == 3:
         time = input("Please enter time: ")
@@ -44,9 +44,9 @@ elif user_selection == "A":
                 number = number
             )
         elif type == 2:
-            salary = input("Please enter salary of stuff person: ")
+            salary = input("Please enter salary of staff person: ")
 
-            create_stuff.run(
+            create_staff.run(
                 name=name,
                 surname=surname,
                 age=age,
