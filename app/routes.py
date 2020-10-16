@@ -1,5 +1,12 @@
-from flask import render_template
+from flask import render_template, flash, redirect, url_for
 from app import app
+from app.forms import LoginForm
+
+from app.actions import CreateStudent
+
+
+create_student = CreateStudent()
+
 
 @app.route("/")
 def mainPage():
@@ -10,12 +17,16 @@ def mainPage():
     }
     return render_template("index.html", user=user)
 
-@app.route("/contact")
-def contactPage():
-    address = {
-        "building" : "Elektron hökümət (E-gov)",
-        "floor" : "1-ci mərtəbə",
-        "street" : "19 Atatürk prospekti",
-        "postal_adress" : "Bakı 1069"
-    }
-    return render_template("contact_page.html", adress = address)
+@app.route('/forms', methods=["GET", "POST"])
+def formPage():
+    form = LoginForm()
+    if form.validate_on_submit():
+        msg = f"Name: {form.name.data}, Surname: {form.surname.data}, Age: {form.age.data}, Number: {form.number.data}"
+        flash(msg)
+        create_student.run(
+                name = form.name.data,
+                surname = form.surname.data,
+                age = form.age.data,
+                number = form.number.data
+            )
+    return render_template("forms.html", form=form)

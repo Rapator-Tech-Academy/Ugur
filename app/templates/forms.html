@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forms</title>
+</head>
+<body>
+    <h1 style="text-align: center;">Form</h1>
+    <form method="POST">
+        {{ form.csrf_token }}
+        {{ form.name.label }}
+        {{ form.name }}
+
+        {{ form.surname.label }}
+        {{ form.surname }}
+
+        {{ form.age.label }}
+        {{ form.age }}
+
+        {{ form.number.label }}
+        {{ form.number }}
+
+        {{ form.submit }}
+
+</body>
+</html>
