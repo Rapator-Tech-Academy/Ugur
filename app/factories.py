@@ -1,10 +1,10 @@
 
 class UserFactory:
-    def __init__(self, data):
-        self.data = data
+    def __init__(self, builder):
+        self.builder = builder
 
-    def serialize(self, **kwargs):
-        return self.data(
+    def create(self, **kwargs):
+        return self.builder(
             name = kwargs.get("name"),
             surname = kwargs.get("surname"),
             username = kwargs.get("username"),

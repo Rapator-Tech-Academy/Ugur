@@ -1,24 +1,26 @@
+from app.repository import Repository
 from stories import story, arguments, Success, Failure, Result
 
 from app.entities import User
 from app.factories import UserFactory
 
+
 class CreateUser:
 
     @story
-    @arguments("name", "surname", "username", "email", "password")
+    @arguments("name", "surname", "username", "mail", "password")
     def create(I):
         I.validate_inputs
         I.build_entity
-        I.repo_add
+        I.add_userdata
         I.done
     
     def validate_inputs(self, ctx):
         return Success()
     
     def build_entity(self, ctx):
-        ctx.entity_factory = UserFactory(data=User)
-        ctx.entity = ctx.entity_factory.serialize(
+        ctx.entity_factory = UserFactory(builder=User)
+        ctx.entity = ctx.entity_factory.create(
             name = ctx.name,
             surname = ctx.surname,
             username = ctx.username,
@@ -27,8 +29,9 @@ class CreateUser:
         )
         return Success()
     
-    def repo_add(self, ctx):
+    def add_userdata(self, ctx):
+        ctx.result = Repository().createUserRepo(data=ctx.entity)
         return Success()
 
     def done(self, ctx):
-        return Success()
+        return Result(ctx.result)

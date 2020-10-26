@@ -5,14 +5,15 @@ from app.models import UserModel
 class Repository:
 
     def createUserRepo(self, data):
-        u = UserModel(
-            name = data.get("name"),
-            surname = data.get("surname"),
-            username = data.get("username"),
-            mail = data.get("mail"),
-            password = data.get("password")
+        user = UserModel(
+            name = data.name,
+            surname = data.surname,
+            username = data.username,
+            mail = data.mail,
         )
-        db.session.add(u)
+        user.generate_password(password=data.password)
+
+        db.session.add(user)
         db.session.commit()
     
 
