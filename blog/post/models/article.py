@@ -9,6 +9,7 @@ class Article(models.Model):
     body = models.TextField(verbose_name="Body of article")
     post_image = models.ImageField(null=True)
     pub_date = models.DateTimeField(auto_now=timezone.now())
+    slug = models.SlugField(null=True, unique=True)
 
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
 
